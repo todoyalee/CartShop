@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 
-void main() {
+
+void main(){
   runApp(myApp());
 }
 
@@ -14,59 +15,33 @@ class myApp extends StatefulWidget {
 }
 
 class _myAppState extends State<myApp> {
-  bool truth=false;
+  bool active=false;
 
+  void add(){
 
-void add(){
-setState(() {
-  
-  if(truth){
-    truth=false;
-  }else {
-    truth=true;
+    setState(() {
+      active=!active;
+    });
+
   }
-});
-
-}
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home:Scaffold(
-
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-            Text("hard work always pays off , you're gonna  be a great software engineer daly ! "),
-            SizedBox(height: 10,),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: TextFormField(decoration: InputDecoration(hintText: "enter your goal "
-              ),
-              obscureText: false,
-              ),
-            ),
-            SizedBox(height: 10,),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: TextFormField(decoration: InputDecoration(hintText: "enter your motive "
-              ),
-              obscureText: true,
-              ),
-            ),
-            SizedBox(height: 10,),
-            IconButton( icon:truth 
-            ? Icon(Icons.star)
-            :Icon(Icons.star_border),
-            color: Colors.red,
-            onPressed: ()=>add(),
-
-            )
-
-          ]),
-        ),
-      )
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: GestureDetector(
+        onTap: add,
+      
+        child:Container(
+          width: 200,
+          height: 200,
+          decoration: BoxDecoration(
+            color: active ? Colors.green : Colors.grey[300]
+          ),
+          child: Center(child: Text(active ? "active " : "false",
+          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+        )
+        
+      ),
     );
   }
 }
