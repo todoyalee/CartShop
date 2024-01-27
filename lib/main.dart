@@ -1,46 +1,72 @@
 import 'package:flutter/material.dart';
 
 
-
 void main(){
-  runApp(myApp());
+  runApp(yo());
 }
 
 
-class myApp extends StatefulWidget {
-  const myApp({super.key});
+class yo extends StatefulWidget {
+  const yo({super.key});
 
   @override
-  State<myApp> createState() => _myAppState();
+  State<yo> createState() => _yoState();
 }
 
-class _myAppState extends State<myApp> {
-  bool active=false;
+class _yoState extends State<yo> {
 
-  void add(){
-
+bool _active=false;
+  void _handleTapboxChanged(bool newValue) {
     setState(() {
-      active=!active;
+      _active = newValue;
     });
-
   }
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.ltr,
-      child: GestureDetector(
-        onTap: add,
-      
-        child:Container(
-          width: 200,
-          height: 200,
-          decoration: BoxDecoration(
-            color: active ? Colors.green : Colors.grey[300]
+      child: SizedBox(
+        child: TapboxB(active: _active,
+        onChanged: _handleTapboxChanged,
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+class TapboxB extends StatelessWidget {
+  const TapboxB({
+    super.key,
+    this.active = false,
+    required this.onChanged,
+  });
+
+  final bool active;
+  final ValueChanged<bool> onChanged;
+
+  void _handleTap() {
+    onChanged(!active);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _handleTap,
+      child: Container(
+        width: 200,
+        height: 200,
+        decoration: BoxDecoration(
+          color: active ? Colors.lightGreen[700] : Colors.grey[600],
+        ),
+        child: Center(
+          child: Text(
+            active ? 'Active' : 'Inactive',
+            style: const TextStyle(fontSize: 32, color: Colors.white),
           ),
-          child: Center(child: Text(active ? "active " : "false",
-          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
-        )
-        
+        ),
       ),
     );
   }
