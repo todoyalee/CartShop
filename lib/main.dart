@@ -1,59 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:flutter2/ippo.dart';
 
+void main() => runApp(const MyApp());
 
-void main(){
-  runApp(myApp());
-}
-
-
-
-
-class myApp extends StatelessWidget {
-  const myApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const title = 'InkWell Demo';
 
-    String goal="i am going to outwork everyone and i'm gonna be a great software engineer in berlin";
-    return MaterialApp(
+    return const MaterialApp(
+      title: title,
+      home: MyHomePage(title: title),
+    );
+  }
+}
 
-      home: Scaffold(
+class MyHomePage extends StatelessWidget {
+  final String title;
 
+  const MyHomePage({super.key, required this.title});
 
-        body: Center(child: 
-
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("$goal"),
-            SizedBox(height: 2,),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: TextFormField(
-                decoration: InputDecoration(hintText: "enter your goal"),
-                obscureText: false,
-              ),
-            ),
-            SizedBox(height: 20,) ,
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: TextFormField(
-                decoration: InputDecoration(hintText: "enter your total goal"),
-                obscureText: true,
-              ),
-            ),
-            SizedBox(height: 20,) ,
-
-
-            ippo(),
-          ],)
-        
-        
-        )
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: const Center(
+        child: MyButton(),
       ),
     );
   }
 }
 
+class MyButton extends StatelessWidget {
+  const MyButton({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    // The InkWell wraps the custom flat button widget.
+    return InkWell(
+      // When the user taps the button, show a snackbar.
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Tap'),
+        ));
+      },
+      child: const Padding(  
+        padding: EdgeInsets.all(12),
+        child: Text('Flat Button'),
+      ),
+    );
+  }
+}
