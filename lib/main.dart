@@ -1,73 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter2/ippo.dart';
 
 
 void main(){
-  runApp(yo());
+  runApp(myApp());
 }
 
 
-class yo extends StatefulWidget {
-  const yo({super.key});
 
-  @override
-  State<yo> createState() => _yoState();
-}
 
-class _yoState extends State<yo> {
+class myApp extends StatelessWidget {
+  const myApp({super.key});
 
-bool _active=false;
-  void _handleTapboxChanged(bool newValue) {
-    setState(() {
-      _active = newValue;
-    });
-  }
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: SizedBox(
-        child: TapboxB(active: _active,
-        onChanged: _handleTapboxChanged,
-        ),
+
+    String goal="i am going to outwork everyone and i'm gonna be a great software engineer in berlin";
+    return MaterialApp(
+
+      home: Scaffold(
+
+
+        body: Center(child: 
+
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("$goal"),
+            SizedBox(height: 2,),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                decoration: InputDecoration(hintText: "enter your goal"),
+                obscureText: false,
+              ),
+            ),
+            SizedBox(height: 20,) ,
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                decoration: InputDecoration(hintText: "enter your total goal"),
+                obscureText: true,
+              ),
+            ),
+            SizedBox(height: 20,) ,
+
+
+            ippo(),
+          ],)
+        
+        
+        )
       ),
     );
   }
 }
 
 
-
-
-class TapboxB extends StatelessWidget {
-  const TapboxB({
-    super.key,
-    this.active = false,
-    required this.onChanged,
-  });
-
-  final bool active;
-  final ValueChanged<bool> onChanged;
-
-  void _handleTap() {
-    onChanged(!active);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleTap,
-      child: Container(
-        width: 200,
-        height: 200,
-        decoration: BoxDecoration(
-          color: active ? Colors.lightGreen[700] : Colors.grey[600],
-        ),
-        child: Center(
-          child: Text(
-            active ? 'Active' : 'Inactive',
-            style: const TextStyle(fontSize: 32, color: Colors.white),
-          ),
-        ),
-      ),
-    );
-  }
-}
