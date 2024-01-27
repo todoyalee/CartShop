@@ -1,58 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 
-
-void main(){
-  runApp(MyLogin());
+void main() {
+  runApp(myApp());
 }
 
-class MyLogin extends StatelessWidget {
-  const MyLogin({super.key});
+
+class myApp extends StatefulWidget {
+  const myApp({super.key});
+
+  @override
+  State<myApp> createState() => _myAppState();
+}
+
+class _myAppState extends State<myApp> {
+  bool truth=false;
+
+
+void add(){
+setState(() {
+  
+  if(truth){
+    truth=false;
+  }else {
+    truth=true;
+  }
+});
+
+}
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    
-    
-    home: Scaffold(
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(80.0),
+      home:Scaffold(
+
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Welcome',
-                style: Theme.of(context).textTheme.displayLarge,
+            Text("hard work always pays off , you're gonna  be a great software engineer daly ! "),
+            SizedBox(height: 10,),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(decoration: InputDecoration(hintText: "enter your goal "
               ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Username',
-                ),
+              obscureText: false,
               ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Password',
-                ),
-                obscureText: true,
+            ),
+            SizedBox(height: 10,),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(decoration: InputDecoration(hintText: "enter your motive "
               ),
-              const SizedBox(
-                height: 24,
+              obscureText: true,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  context.pushReplacement('/catalog');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.yellow,
-                ),
-                child: const Text('ENTER'),
-              )
-            ],
-          ),
+            ),
+            SizedBox(height: 10,),
+            IconButton( icon:truth 
+            ? Icon(Icons.star)
+            :Icon(Icons.star_border),
+            color: Colors.red,
+            onPressed: ()=>add(),
+
+            )
+
+          ]),
         ),
-      ),
-    ));
+      )
+    );
   }
 }
